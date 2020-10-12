@@ -14,9 +14,8 @@ fn main() {
     let target = &args[1];
     println!("Scanning host {} ports {}-{}", target, PORT_START, PORT_END);
     for port in PORT_START..PORT_END {
-        match net::TcpStream::connect(format!("{}:{}", target, port)) {
-            Ok(_) => println!("Found open port: {}", port),
-            Err(_) => {}
+        if let Ok(_) = net::TcpStream::connect(format!("{}:{}", target, port)) {
+            println!("Found open port: {}", port);
         }
     }
 }
