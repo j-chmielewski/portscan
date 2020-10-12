@@ -1,6 +1,7 @@
 use std::env;
 use std::process;
 use std::net;
+use colored::*;
 
 static PORT_START: i32 = 1;
 static PORT_END: i32 = 100;
@@ -26,12 +27,11 @@ fn parse_args() -> Target {
 }
 
 fn main() {
-
     let target = parse_args();
-    println!("Scanning host {} ports {}-{}", target.host, target.port_start, target.port_end);
+    println!("Scanning host {} ports {}-{}", target.host.bright_green(), target.port_start.to_string().bright_green(), target.port_end.to_string().bright_green());
     for port in PORT_START..PORT_END {
         if let Ok(_) = net::TcpStream::connect(format!("{}:{}", target.host, port)) {
-            println!("Found open port: {}", port);
+            println!("Found open port: {}", port.to_string().bright_green());
         }
     }
 }
