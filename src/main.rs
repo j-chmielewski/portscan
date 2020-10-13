@@ -14,15 +14,21 @@ struct Target {
 
 fn parse_args() -> Target {
     let args: Vec<String> = env::args().collect();
-    if args.len() != 2 {
-        println!("Usage:\n{} target", args[0]);
+    if args.len() == 2 {
+          return Target {
+            host: args[1].clone(),
+            port_start: PORT_START,
+            port_end: PORT_END
+        }
+   } else if args.len() == 4 {
+         return Target {
+            host: args[1].clone(),
+            port_start: args[2].parse::<i32>().unwrap(),
+            port_end: args[3].parse::<i32>().unwrap()
+        }
+    } else {
+        println!("Usage:\n{} target [port_start port_end]", args[0]);
         process::exit(1);
-    }
-    let target = args[1].clone();
-    Target {
-        host: target,
-        port_start: PORT_START,
-        port_end: PORT_END
     }
 }
 
