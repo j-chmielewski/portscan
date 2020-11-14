@@ -1,6 +1,4 @@
-use std::env;
-use std::process;
-use std::net;
+use std::{env, process, net};
 use colored::*;
 
 static PORT_START: i32 = 1;
